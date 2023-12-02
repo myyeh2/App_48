@@ -69,12 +69,12 @@ for (int i = 0; i != iRow; i++)
 
     // 隨時間變化的角矩陣。 
     ReVal.Matrix[i, 0] = i; 
-    ReVal.Matrix[i, 1] = D[0, 0].Im[0, 0]; 
-    ReVal.Matrix[i, 2] = D[1, 1].Im[0, 0]; 
-    ReVal.Matrix[i, 3] = D[2, 2].Im[0, 0]; 
-    ReVal.Matrix[i, 4] = D[3, 3].Im[0, 0]; 
-    ReVal.Matrix[i, 5] = D[4, 4].Im[0, 0]; 
-    ReVal.Matrix[i, 6] = D[5, 5].Im[0, 0]; 
+    ReVal[i, 1] = D[0, 0].Im;  // ReVal.Matrix[i, 1] = D[0, 0].Im[0, 0]; 
+    ReVal[i, 2] = D[1, 1].Im;  // ReVal.Matrix[i, 2] = D[1, 1].Im[0, 0]; 
+    ReVal[i, 3] = D[2, 2].Im;  // ReVal.Matrix[i, 3] = D[2, 2].Im[0, 0]; 
+    ReVal[i, 4] = D[3, 3].Im;  // ReVal.Matrix[i, 4] = D[3, 3].Im[0, 0]; 
+    ReVal[i, 5] = D[4, 4].Im;  // ReVal.Matrix[i, 5] = D[4, 4].Im[0, 0]; 
+    ReVal[i, 6] = D[5, 5].Im;  // ReVal.Matrix[i, 6] = D[5, 5].Im[0, 0]; 
 }
 
 Console.WriteLine("            時間(由實數值改為複數值)                 特徵值(Lambda0 ... Lambda5)       "); 
