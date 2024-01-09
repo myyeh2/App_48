@@ -1,9 +1,31 @@
 
-
-// ***  時頻數值計算(Time Frequency Numerical Computations)  ***  
+// ***  時頻數值計算(Precisely Time-Frequency Numerical Computations)  ***
 // 微分方程式 : M(t) * yh''(t) + C(t) * yh'(t) + K(t) * yh(t) = dh 
+//(多空間多階之齊次微分方程式，求得系統或狀態矩陣 A，再求得 A * Q = Q * D)
 // 稱此法為 : 實數與複數矩陣轉換( Real And Complex Matrix Transform )   
 // 本求解法可對應於 Laplace、 Fourier、 Z Transform 或是 捲積積分法等等。 
+
+// 假設已知 M(t), K(t), C(t)，再求得隨時間變化的頻率(*** 即系統矩陣 A 之
+// 複數特徵值中的虛數值  ***)。
+// M(t) = { {19, -1.5, -2+13.3*sin(0.85*t)}, {-1, 15, 0},      
+// {-10-2.7*cos(1.3*t), -3, 27}      } 
+// K(t) = { {60, -8, -2-332*sin(1.37*t)},    {-16, 180, -120}, 
+// {-20, -100+579*cos(0.24*t), 300}  } 
+// C(t) = { {35, -1-13.2*sin(0.35t), -0.5},  {-1.5, 40, -1.5}, 
+// {-1.2+22.5*cos(1.95*t), -1.5, 75} }
+// 系統矩陣 A 的特徵值與特徵向量，為系統的潛在特性，並在系統受到
+// 外力時，才會顯現出來。
+
+// 若要求得系統的訊號響應值[Signal Response]，應由實際量測的初始值或
+// 是邊界值，求得複數係數向量dh。
+// 再依據如下推導的公式求得。(初始值和邊界值分別參見App_6J和App_6M儲存庫)
+// [yh''(t) | yh'(t)] = A * [yh'(t) | yh(t)]。  "|"是垂直合併運算子。
+// [yh'(t) | yh(t)] = Hexp(D, Q, t) *  dh 。
+// A * Q = Q * D  => A = Q * D * Qi 。  
+// D為複數特徵值矩陣，Q為複數特徵向量矩陣，Qi為Q之逆矩陣，Hexp(D, Q, t)和dh分別
+// 爲複數矩陣和向量。
+// [y'(t) | y(t)] = [yh'(t) | yh(t)] + [yp'(t) | yp(t) ] 
+
 
 using System;
 using Matrix_0; 
@@ -16,11 +38,14 @@ namespace ConsoleApp48
         {
 
 // 建構初始矩陣 M、K、C。
-double[,] M0 = { { 19, -1.5, -2 }, { -1, 15, 0 }, { 0, -3, 27 } }; 
-double[,] K0 = { {60, -8, -2}, {-16, 180, -120 }, {-20, -100, 300} };
-double[,] C0 = { {35, -1, -0.5}, {-1.5, 40, -1.5}, {-1.2, -1.5, 75} }; 
+double[,] M0 = 
+    { {19, -1.5, -2}, {-1, 15, 0},      {-10, -3, 27}    };
+double[,] K0 = 
+    { {60, -8, -2},   {-16, 180, -120}, {-20, -100, 300} };
+double[,] C0 = 
+    { {35, -1, -0.5}, {-1.5, 40, -1.5}, {-1.2, -1.5, 75} };
 
-// 轉爲SMS型態之矩陣。
+// 轉爲SMS型態之矩陣(好處是可使用矩陣的運算子)。
 ReMatrix M = new ReMatrix(M0); 
 ReMatrix K = new ReMatrix(K0);
 ReMatrix C = new ReMatrix(C0); 
@@ -36,17 +61,23 @@ int iColD = m * r + 1;
 CxMatrix CxVal = new CxMatrix(iRow, iColD); 
 ReMatrix ReVal = new ReMatrix(iRow, iColD);
 
+// 時間軸(t-axis)之計算 : 
 for (int i = 0; i != iRow; i++)
 {
     double t = step * i; 
 
-    // 建構 M、k、C 變數矩陣。
-    M.Matrix[0, 2] = 13.3 * Math.Sin(0.85 * t);
-    M.Matrix[2, 0] = -2.7 * Math.Cos(1.3 * t);  
-    C.Matrix[0, 1] = -13.2 * Math.Sin(0.35 * t);  
-    C.Matrix[2, 0] = 22.5 * Math.Cos(1.95 * t);  
-    K.Matrix[0, 2] = -332 * Math.Sin(1.37 * t);  
-    K.Matrix[2, 1] = 579 * Math.Cos(0.24 * t);  
+    // 建構 M、k、C 為變數 t 矩陣。
+    double[,] M1 = { {0, 0, 13.3*Math.Sin(0.85*t)},  {0, 0, 0}, 
+        {-2.7*Math.Cos(1.3*t), 0, 0}  };
+    double[,] K1 = { {0, 0, -332*Math.Sin(1.37*t)},  {0, 0, 0}, 
+        {0, 579*Math.Cos(0.24*t), 0}  };
+    double[,] C1 = { {0, -13.2*Math.Sin(0.35*t), 0}, {0, 0, 0}, 
+        {22.5*Math.Cos(1.95*t), 0, 0} };
+
+    // M(t)=M+(ReMatrix)M1; K(t)=K+(ReMatrix)K1; C(t)=C+(ReMatrix)C1;
+    M += (ReMatrix)M1;
+    K += (ReMatrix)K1;
+    C += (ReMatrix)C1; 
 
     // 隨時間變化的系統(狀態)矩陣 A。  
     MKCMatrix mkc = new MKCMatrix(M, K, C);
@@ -56,11 +87,13 @@ for (int i = 0; i != iRow; i++)
     EIG eig = new EIG(A);
     CxMatrix D = eig.CxMatrixD;   
 
-    // 將時間轉爲複數值。
+    // 將時間轉爲單一的複數值(Complex Scalar)，
+    // 再轉爲C1X1的複數矩陣(Complex Matrix)。
     CxScalar cxScalar = new CxScalar(t, 0); 
-    
+    CxMatrix cxMatrix = new CxMatrix(cxScalar); 
+
     // 隨時間變化的特徵值矩陣。
-    CxVal[i, 0] =  new CxMatrix(cxScalar); 
+    CxVal[i, 0] =  cxMatrix; 
     CxVal[i, 1] = D[0, 0]; 
     CxVal[i, 2] = D[1, 1]; 
     CxVal[i, 3] = D[2, 2]; 
@@ -69,24 +102,27 @@ for (int i = 0; i != iRow; i++)
     CxVal[i, 6] = D[5, 5]; 
 
     // 隨時間變化的角矩陣。 
-    ReVal.Matrix[i, 0] = i; 
-    ReVal.Matrix[i, 1] = D[0, 0].Im[0, 0]; 
-    ReVal.Matrix[i, 2] = D[1, 1].Im[0, 0]; 
-    ReVal.Matrix[i, 3] = D[2, 2].Im[0, 0]; 
-    ReVal.Matrix[i, 4] = D[3, 3].Im[0, 0]; 
-    ReVal.Matrix[i, 5] = D[4, 4].Im[0, 0]; 
-    ReVal.Matrix[i, 6] = D[5, 5].Im[0, 0]; 
+    double[,] tMatrix = { {t} };
+    ReVal[i, 0] = (ReMatrix)tMatrix; 
+    ReVal[i, 1] = D[0, 0].Im;  
+    ReVal[i, 2] = D[1, 1].Im;  
+    ReVal[i, 3] = D[2, 2].Im;  
+    ReVal[i, 4] = D[3, 3].Im;  
+    ReVal[i, 5] = D[4, 4].Im;  
+    ReVal[i, 6] = D[5, 5].Im;  
 }
 
-Console.WriteLine("            時間(由實數值改為複數值)                 特徵值(Lambda0 ... Lambda5)       "); 
-Console.WriteLine("\n{0}", new PR(CxVal)); 
-Console.WriteLine("\n **********************************************************\n"); 
-Console.WriteLine("\n*** 以下是時間與特徵值的模數(Modulus)[即複數的絕對值]大小排序的角頻率，共計有六組，可作為Excel繪圖 ***\n"); 
-Console.WriteLine("        時間(sec)         角頻率(rad/sec)  （ w0  ...  w5  )\n");  
-Console.WriteLine("\n{0} \n", new PR(ReVal)); 
-Console.WriteLine("\n **********************************************************\n"); 
-Console.WriteLine("\n時間序列\n{0}\n", new PR4(ReVal, 0)); 
-Console.WriteLine("\n*** 以下是依據特定時間點，對應特徵值的模數(Modulus)[即複數的絕對值]大小排序，共計有六組，可作為Python 繪圖 ***\n");
+Console.WriteLine("\n***  時間(設為複數值，計有一組)，" + 
+    "特徵值(計有六組)，合計共有七組複數值  ***"); 
+Console.WriteLine("\n{0}\n", new PR(CxVal)); 
+
+Console.WriteLine("\n***  時間(計有一組)，特徵值的虛" + 
+    "數值(計有六組)，合計共有七組實數值 ***"); 
+Console.WriteLine("  (特徵值的虛數值即角頻率，係依據特徵值" + 
+    "的絕對值[模數 Modulus]，由大致小排序而成)");
+Console.WriteLine("\n{0}\n", new PR(ReVal)); 
+
+Console.WriteLine("\n時間序列:  t\n{0}\n", new PR4(ReVal, 0)); 
 Console.WriteLine("\n角頻率序列w0\n{0}\n", new PR4(ReVal, 1)); 
 Console.WriteLine("\n角頻率序列w1\n{0}\n", new PR4(ReVal, 2)); 
 Console.WriteLine("\n角頻率序列w2\n{0}\n", new PR4(ReVal, 3)); 
