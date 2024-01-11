@@ -46,55 +46,123 @@
 
 ---  
 
-# $$時\quad頻\quad數\quad值\quad計\quad算$$   
+# $時\quad頻\quad數\quad值\quad計\quad算$   
 
-### $$ Precisely \quad Time-Frequency \quad Numerical \quad Computations $$  
+### $$Precisely \quad Time-Frequency \quad Numerical \quad Computations$$  
 
-#  $ 微分方程式 : $
+#  $微分方程式 :$
 
-### $$ M(t) \times \ddot{y}_h(t) + C(t) \times \dot{y}_h(t) + K(t) \times y_h(t) = d_h $$  
+### $$M(t) \times \ddot{y}_h(t) + C(t) \times \dot{y}_h(t) + K(t) \times y_h(t) = d_h$$  
 
-## $$ 由齊次微分方程式，得到\quad \ddot{y}_h(t)、\dot{y}_h(t)、y_h(t) $$  
+## $$由齊次微分方程式，得到\quad \ddot{y}_h(t)、\dot{y}_h(t)、y_h(t)$$  
 
-### $$ M(t) \times \ddot{y}_p(t) + C(t) \times \dot{y}_p(t) + K(t) \times y_p(t) = f(t) $$  
+### $$M(t) \times \ddot{y}_p(t) + C(t) \times \dot{y}_p(t) + K(t) \times y_p(t) = f(t)$$  
 
-## $$ 由非齊次微分方程式，得到\quad \ddot{y}_p(t)、\dot{y}_p(t)、y_p(t) $$   
+## $$由非齊次微分方程式，得到\quad \ddot{y}_p(t)、\dot{y}_p(t)、y_p(t)$$   
 
-## $通解 ：$ 
+## $通\qquad解 ：$ 
 
-##  $$\begin{bmatrix}\dot{y}(t)\\y(t)\end{bmatrix} =\begin{bmatrix}\dot{y}_h(t)\\y_h(t)\end{bmatrix} + \begin{bmatrix}\dot{y}_p(t)\\y_p(t)\end{bmatrix}$$
+## 
+$$
+\begin{bmatrix}
+\dot{y}(t) \\\\ y(t)
+\end{bmatrix} =
+\begin{bmatrix}
+\dot{y}_h(t) \\\\ y_h(t)
+\end{bmatrix} + 
+\begin{bmatrix}
+\dot{y}_p(t) \\\\ y_p(t)
+\end{bmatrix}
+$$
 
 ---  
 
->  ***空間多自由度、且多階的時間函數、齊次微分方程式：M(t) * yh''(t) + C(t) * yh'(t) + K(t) * yh(t) = dh，使用友矩陣(Companion Matrix)的方法，求得系統或狀態矩陣 A(t)，再求得 A(t) * Q(t) = Q(t) * D(t)，其中Q（t）是特徵向量矩陣，D（t）是特徵值矩陣，稱此法為實數與複數矩陣轉換（ Real And Complex Matrix Transform ），本求解法可對應於 Laplace、 Fourier、 Z Transform 或是捲積積分法等等。隨時間變化的角頻率（$\omega$）是系統矩陣 A（t）之複數特徵值的虛數值，隨時間變化的模態，是系統矩陣 A（t）的特徵向量。D（t）和Q（t）為系統的潛在特性，並在系統受到外力時，才會顯現出來。若要求得系統的訊號響應值[Signal Response]，應由實際量測的初始值或是邊界值，求得複數係數向量$d_h$，再依據如下推導的公式求得。有關初始值和邊界值分別參見App_6J和App_6M儲存庫，而相關的推導公式如右，$\begin{bmatrix}y_h'(t)\\y_h(t)\end{bmatrix} = H_{exp}(D,Q,t) \times d_h$，其中$D$為複數特徵值矩陣，$Q$為複數特徵向量矩陣（模態），$Q_i$為$Q$之逆矩陣，$Hexp(D, Q, t)$和$d_h$分別爲複數矩陣和複數向量。***   
+>  ***空間多自由度、且多階的時間函數、齊次微分方程式：M(t) * yh''(t) + C(t) * yh'(t) + K(t) * yh(t) = dh，使用友矩陣(Companion Matrix)的方法，求得系統或狀態矩陣 A(t)，再求得 A(t) * Q(t) = Q(t) * D(t)，其中Q（t）是特徵向量矩陣，D（t）是特徵值矩陣，稱此法為實數與複數矩陣轉換（ Real And Complex Matrix Transform ），本求解法可對應於 Laplace、 Fourier、 Z Transform 或是捲積積分法等等。隨時間變化的角頻率（w）是系統矩陣 A（t）之複數特徵值的虛數值，隨時間變化的模態，是系統矩陣 A（t）的特徵向量。D（t）和Q（t）為系統的潛在特性，並在系統受到外力時，才會顯現出來。若要求得系統的訊號響應值[Signal Response]，應由實際量測的初始值或是邊界值，求得複數係數向量dh，再依據如下推導的公式求得。有關初始值和邊界值分別參見App_6J和App_6M儲存庫，而相關的推導公式和所顯示的數學矩陣方程式，如以下所示的矩陣表示式，其中D為複數特徵值矩陣，Q為複數特徵向量矩陣（模態），Qi為Q之逆矩陣，Hexp(D, Q, t)和dh分別爲複數矩陣和複數向量。***   
 
-#  $$實 \quad 例 \quad 計 \quad 算 \quad : $$
+## 
+
+$$
+\begin{bmatrix}
+\dot{y}_h(t) \\\\ y_h(t)
+\end{bmatrix} =  Hexp(D, Q, t) \times d_h
+$$
+
+#  $實 \quad 例 \quad 計 \quad 算 \quad :$
 
 ### $$詳細的【CSharp】程式碼和輸出圖表，請參考本儲存庫中的檔案$$ 
 
 ##
 
-$ \color{red} M(t) = \begin{bmatrix} 19 & -1.5 & -2+13.3\times sin(0.85 \times t) \\ -1 & 15 & 0 \\ -10-2.7 \times cos(1.3 \times t) & -3 & 27 \end{bmatrix}$  
+$$M(t) = 
+\begin{bmatrix}
+19 & -1.5 & -2+13.3 \times sin(0.85 \times t) \\\\ 
+-1 & 15 & 0 \\\\ 
+-10-2.7 \times cos(1.3 \times t) & -3 & 27  
+\end{bmatrix}
+$$  
  
 ###
 
-$ \color{red} K(t) = \begin{bmatrix} 60 & -8 & -2-332 \times sin(1.37 \times t) \\ -16 & 180 & -120 \\ -20 & -100+579 \times cos(0.24 \times t) & 300 \end{bmatrix}$
+$$K(t) = 
+\begin{bmatrix}
+60 & -8 & -2-332 \times sin(1.37 \times t) \\\\ 
+-16 & 180 & -120 \\\\ 
+-20 & -100+579 \times cos(0.24 \times t) & 300 
+\end{bmatrix}
+$$  
 
 ###
 
-$ \color{red} C(t) = \begin{bmatrix} 35 & -1-13.2 \times sin(0.35 \times t) & -0.5 \\ -1.5 & 40 & -1.5 \\-1.2+22.5 \times cos(1.95 \times t) & -1.5 & 75 \end{bmatrix} $
+$$C(t) = 
+\begin{bmatrix}
+35 & -1-13.2 \times sin(0.35 \times t) & -0.5 \\\\ 
+-1.5 & 40 & -1.5 \\\\ 
+-1.2+22.5 \times cos(1.95 \times t) & -1.5 & 75 
+\end{bmatrix}
+$$  
 
 #    
 
-### $A(t) = \begin{bmatrix} -M_i(t) \times C(t) & -M_i(t) \times K(t) \\ I & O \end{bmatrix}$
+$$A(t) = 
+\begin{bmatrix} 
+-M_i(t) \times C(t) & -M_i(t) \times K(t) \\\\ I & O 
+\end{bmatrix}
+$$
 
-###  $A(t) \times Q(t) = Q(t) \times D(t) \quad  => \quad A(t) = Q(t) \times D(t) \times Q_i(t)$  
+###  $$A(t) \times Q(t) = Q(t) \times D(t) \quad  => \quad A(t) = Q(t) \times D(t) \times Q_i(t)$$  
 
-### $ \begin{bmatrix} \ddot{y}_h(t) \\ \dot{y}_h(t) \end{bmatrix} = A(t) \times \begin{bmatrix} \dot{y}_h(t) \\ y_h(t) \end{bmatrix} $
+### 
 
-### $ \begin{bmatrix} \dot{y}_h(t) \\ y_h(t) \end{bmatrix} = H_{exp}(D, Q, t)  \times d $
+$$
+\begin{bmatrix} 
+\ddot{y}_h(t) \\\\ \dot{y}_h(t) 
+\end{bmatrix} = A(t) \times 
+\begin{bmatrix} 
+\dot{y}_h(t) \\\\ y_h(t) 
+\end{bmatrix}
+$$
 
-### $ \begin{bmatrix} \dot{y}(t) \\ y(t) \end{bmatrix} = \begin{bmatrix} \dot{y}_h(t) \\ y_h(t) \end{bmatrix} + \begin{bmatrix} \dot{y}_p(t) \\ y_p(t) \end{bmatrix} $
+### 
+
+$$
+\begin{bmatrix} 
+\dot{y}_h(t) \\\\ y_h(t) 
+\end{bmatrix} = Hexp(D, Q, t)  \times d
+$$
+
+### 
+
+$$
+\begin{bmatrix}
+\dot{y}(t) \\\\ y(t) 
+\end{bmatrix} = 
+\begin{bmatrix} 
+\dot{y}_h(t) \\\\ y_h(t) 
+\end{bmatrix} + 
+\begin{bmatrix} 
+\dot{y}_p(t) \\\\ y_p(t) 
+\end{bmatrix}
+$$
 
 ##  
 
