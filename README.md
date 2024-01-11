@@ -50,7 +50,7 @@
 
 ### $$Precisely \quad Time-Frequency \quad Numerical \quad Computations$$  
 
-#  $微分方程式 :$
+#  $二階微分方程式 :$
 
 ### $$M(t) \times \ddot{y}_h(t) + C(t) \times \dot{y}_h(t) + K(t) \times y_h(t) = d_h$$  
 
@@ -60,7 +60,7 @@
 
 ## $$由非齊次微分方程式，得到\quad \ddot{y}_p(t)、\dot{y}_p(t)、y_p(t)$$   
 
-## $通\qquad解 ：$ 
+# $通\qquad解 ：$ 
 
 ## 
 $$
