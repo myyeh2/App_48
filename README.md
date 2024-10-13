@@ -1,11 +1,7 @@
-<!--     範例 App_48 儲存庫      -->
-
-### 
-<!--                 
+<!--  App_48 儲存庫  
 # \[{  \color{Fuchsia}精\;銳\; \color{Purple}矩\;陣\;  \color{Red}計\;算\; \color{Green} 求\;解\;器  }\] 
--->  
-![](Images/11-10-01.png) 
-
+-->
+![](Images/11-10-01.png)
 
 <!--         
 #### \[{  \color{Fuchsia} 【 \color{Green}  Sharp \; Matrix \; Solver \;  \color{Brown} \iff  \;  \color{Red} S\;M\;S】 }\]  
@@ -17,34 +13,30 @@
 <!--   
 ## \[{ \color{Fuchsia} Time-Frequency-Signal \;(Response) \quad Solution  }\] 
 -->
-![](Images/11-30-01.png)    
+![](Images/11-30-01.png)
 
- 
 <!--     ##### \[ using \]   -->
-![](Images/11-30-07.png)   
-
+![](Images/11-30-07.png)
 
 <!--   
 ## \[  \color{Red} Precisely \; Numerical \; Value \; Computations  \]  
 -->  
-![](Images/11-30-02.png) 
+![](Images/11-30-02.png)
 
-  
-<!--     ##### \[ with \]   -->   
-![](Images/11-30-08.png) 
+<!--     ##### \[ with \]   -->
+![](Images/11-30-08.png)
 
 <!--   
 ## \[{ \color{Green} Real \; \color{Red} And \; \color{magenta} Complex \quad \; \color{Brown} Matrix \;\; Transform  }\] 
 -->
-![](Images/11-30-03.png)  
+![](Images/11-30-03.png)
 
-  
-<!--         ##### \[ Part \; 1 \]    -->   
-![](Images/11-30-09.png)   
+<!--         ##### \[ Part \; 1 \]    -->
+![](Images/11-30-09.png)
 
 ####
 
----  
+---
 
 # $時\quad頻\quad數\quad值\quad計\quad算$   
 
