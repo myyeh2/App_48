@@ -87,12 +87,12 @@
 
 ![](Images/24-10-13-5.png)
 
-<!--                  
+<!--       
 ###### \[{ \color{Blue} C(t) = \begin{bmatrix} 35 & -1-13.2 \times sin(0.35 \times t) & -0.5 \\\\ -1.5 & 40 & -1.5 \\\\ -1.2+22.5 \times cos(1.95 \times t) & -1.5 & 75 \end{bmatrix} }\]
 
 #
 
-#### \[{ \color{Brown} A(t) = \begin{bmatrix} -M_i(t) \times C(t) & -M_i(t) \times K(t) \\\\ I & O \end{bmatrix} }\]
+#### \[{ \color{Brown} A(t) = \begin{bmatrix} -M_i(t) \times C(t) & -M_i(t) \times K(t) \\\\ I_d & Zero \end{bmatrix} }\]
 
 ### \[{ \color{Coral} A(t) \times Q(t) = Q(t) \times D(t) \quad \Longrightarrow   }\]
 
